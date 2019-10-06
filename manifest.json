@@ -1,5 +1,5 @@
 {
-  "manifest_version":1,
+  "manifest_version":2,
   "name": "Record click bot",
   "description": "record clicks and reply",
   "version":"2.0",
