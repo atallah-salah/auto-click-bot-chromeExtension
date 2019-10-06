@@ -1,16 +1,35 @@
 let clicksArray=[];
+let status ="idle";
 
 
 window.addEventListener('click',(item)=>{
-  clicksArray.push({id:clicksArray.length,x:item.pageX,y:item.pageY,time:"0"})
-  console.log('test',clicksArray);
+  if(status==="recording"){
+    
+    clicksArray.push({id:clicksArray.length,x:item.pageX,y:item.pageY,time:"1000"});
+  }
 })
 
 chrome.runtime.onMessage.addListener(gotMessage)
 
-function gotMessage(req,sender,res) {
-  console.log("new message",req,sender,res);
-  res("test");
-  return true;
+function gotMessage(req,sender,sendRes) {
+  switch (req.type) {
+    case "startRecord":
+      status = "recording";      
+      sendRes({type:status});
+      return true;
+    break;
   
+    case "stopRecord":
+      status = "idle";
+      sendRes({type:status});
+      return true;
+    break;
+
+    case "status":
+      sendRes({type:status,value:clicksArray});
+      return true;
+    break;
+  }
 }
+
+

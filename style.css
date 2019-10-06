@@ -61,3 +61,8 @@ table.paleBlueRows tfoot td {
 .button.cancel-button{
   float: right;
 }
+
+#timePlay{
+  padding: 6px;
+  margin: 10px;
+}
