@@ -15,6 +15,7 @@
       <th>Record</th>
       <th>Position</th>
       <th>Time</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <!-- <tfoot>
@@ -25,13 +26,15 @@
     </tr>
     </tfoot> -->
     <tbody id="table-body">
+      <!-- <td></td> -->
     </tbody>
     </table>
+    <hr>
   <button id="startRecord" class="button start-button">Start recording</button>
 
   <!-- <button>Stop</button> -->
-  <input id="timePlay" type="number" placeholder="Play number...">
-  <button id="playRecord" class="button cancel-button" disabled>Play</button>
+  <input id="timePlay" type="number" class="hidden-ready" placeholder="Play number..." hidden>
+  <button id="playRecord" class="button cancel-button hidden-ready" hidden>Play</button>
 
 </body>
 

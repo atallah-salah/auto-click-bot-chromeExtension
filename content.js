@@ -4,8 +4,10 @@ let status ="idle";
 
 window.addEventListener('click',(item)=>{
   if(status==="recording"){
-    
     clicksArray.push({id:clicksArray.length,x:item.pageX,y:item.pageY,time:"1000"});
+
+    let ele = document.elementFromPoint(item.pageX, item.pageY);
+    ele && ele.style && (ele.style.textShadow = "2px 2px 3px rgba(255,255,0,0.3)");
   }
 })
 

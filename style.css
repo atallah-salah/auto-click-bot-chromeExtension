@@ -64,5 +64,22 @@ table.paleBlueRows tfoot td {
 
 #timePlay{
   padding: 6px;
-  margin: 10px;
+  margin: 10px 0px;
+  float: right;
+}
+
+.delete-button,.show-button{
+  width: 50%;
+  height: 100%;
+  padding: 4px;
+  border: unset;
+}
+
+
+.delete-button{
+  background-color:rgba(255,0,0,0.3);
+}
+
+.show-button{
+  background-color: rgba(0,255,0,0.3);
 }
