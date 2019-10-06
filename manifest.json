@@ -6,5 +6,8 @@
   "icons": {
     "128":"icon_128.png"
   },
+  "background": {
+    "scripts":["background.js"]
+  },
   "permissions":["activeTab"]
 }
