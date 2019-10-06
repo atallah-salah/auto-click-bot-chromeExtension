@@ -6,6 +6,10 @@
   "icons": {
     "128":"icon_128.png"
   },
+  "browser_action":{
+    "default_cion":"icon_128.png",
+    "default_popup":"index.html"
+  },
   "background": {
     "scripts":["background.js"]
   },
