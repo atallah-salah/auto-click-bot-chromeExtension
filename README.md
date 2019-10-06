@@ -1,0 +1,1 @@
+# auto-click-bot-chromeExtension
