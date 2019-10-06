@@ -1,6 +1,9 @@
+let clicksArray=[];
+
 
 window.addEventListener('click',(item)=>{
-  console.log('test',item.pageY);
+  clicksArray.push({id:clicksArray.length,x:item.pageX,y:item.pageY,time:"0"})
+  console.log('test',clicksArray);
 })
 
 chrome.runtime.onMessage.addListener(gotMessage)

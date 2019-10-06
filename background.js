@@ -1,1 +1,1 @@
-console.log("Test Ext");
+console.log("Test Ext :background");
