@@ -1,0 +1,8 @@
+{
+  "manifest_version":1,
+  "name": "Record click bot",
+  "description": "record clicks and reply",
+  "version":"2.0",
+  "icons": {},
+  "permissions":["activeTab"]
+}
