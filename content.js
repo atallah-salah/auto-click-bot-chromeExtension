@@ -1,6 +1,6 @@
 let clicksArray=[];
 let status ="idle";
-
+let isStopped=true;
 
 window.addEventListener('click',(item)=>{
   if(status==="recording"){
@@ -31,7 +31,41 @@ function gotMessage(req,sender,sendRes) {
       sendRes({type:status,value:clicksArray});
       return true;
     break;
+
+    case "play":
+      play()
+      sendRes({type:status});
+      return true;
+    break;
+
+    case "stop":
+    stop()
+    sendRes({type:status});
+    return true;
+  break;
   }
 }
 
+function play(params) {
+  isStopped = true;
+  for (let a = 0, b = Promise.resolve(); a < 10; a++) {
+    b = b.then(e => new Promise(resolvee =>{
+      for (let i = 0, p = Promise.resolve(); i < clicksArray.length; i++) {
+        p = p.then(_ => new Promise(resolve =>
+            setTimeout(function () {
+                let ele = document.elementFromPoint(clicksArray[i].x,clicksArray[i].y);
+                ele.click();
+                isStopped && resolve();
+                if(i===clicksArray.length-1){
+                  isStopped && resolvee()
+                }
+            }, 1000)
+        ));
+      }
+    }));
+  }
+}
 
+function stop(params) {
+  isStopped=false;
+}

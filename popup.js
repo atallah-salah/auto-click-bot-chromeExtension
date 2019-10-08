@@ -1,7 +1,8 @@
 let status ="idle";
 let clicksArray=[];
 let tableBody = document.getElementById("table-body");
-
+let playButton = document.getElementById("playRecord");
+let timePlayInput = document.getElementById("timePlay");
 // check status
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
   chrome.tabs.sendMessage(tabs[0].id, {type:"status"}, function(response){
@@ -10,6 +11,12 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       updateTable()
       if(response.type==="recording"){
         firstButton.textContent="Stop recroding";
+      }else{
+        if(clicksArray.length>1 && status==="idle"){
+          document.querySelectorAll(".hidden-ready").forEach(ele=>ele.hidden=false)
+        }else{
+          document.querySelectorAll(".hidden-ready").forEach(ele=>ele.hidden=true)
+        }
       }
       // status = response.status;
   });
@@ -30,16 +37,31 @@ function switchButton(){
       status = "recording";      
       firstButton.textContent="Stop recroding";
       startRecord();
-      break;
+    break;
   
-      case "recording":
+    case "recording":
       status = "idle";      
       firstButton.textContent="Start recroding";
       stopRecord();
-      break;
+    break;
   }
 }
 
+function playStopButtons(){
+  switch (status) {
+    case "idle":
+      playButton.textContent = "Stop";
+      timePlayInput.disabled =true;
+      playRecord()
+    break;
+  
+    case "playing":
+      playButton.textContent = "Play";
+      timePlayInput.disabled = false;
+      stopPlaying()
+    break;
+  }
+}
 
 
 
@@ -48,7 +70,6 @@ function startRecord() {
 
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {type:"startRecord"}, function(response){
-        console.log("popup js :res :startRecord",response);
     });
   });
 }
@@ -57,7 +78,6 @@ function stopRecord() {
   status="idle";
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {type:"stopRecord"}, function(response){
-        console.log("popup js :res :stopRecord",response);
         if(clicksArray.length>1 && status==="idle"){
           document.querySelectorAll(".hidden-ready").forEach(ele=>ele.hidden=false)
         }else{
@@ -102,4 +122,26 @@ function updateTable(){
 
     tableBody.append(tr)
   }
+}
+
+playButton.addEventListener("click",()=>playStopButtons())
+
+playRecord = function(){
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    if(clicksArray.length>1 && status==="idle"){
+        status = "playing"
+        chrome.tabs.sendMessage(tabs[0].id, {type:"play",value:timePlayInput.value || 1}, function(response){
+        });
+      }
+  });
+}
+
+stopPlaying= function(){
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    if(clicksArray.length>1 && status==="playing"){
+        status = "idle";
+        chrome.tabs.sendMessage(tabs[0].id, {type:"stop",value:timePlayInput.value || 1}, function(response){  
+        });
+      }
+  });
 }
