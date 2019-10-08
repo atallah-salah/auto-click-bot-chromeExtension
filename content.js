@@ -33,7 +33,7 @@ function gotMessage(req,sender,sendRes) {
     break;
 
     case "play":
-      play()
+      play(req)
       sendRes({type:status});
       return true;
     break;
@@ -48,7 +48,7 @@ function gotMessage(req,sender,sendRes) {
 
 function play(params) {
   isStopped = true;
-  for (let a = 0, b = Promise.resolve(); a < 10; a++) {
+  for (let a = 0, b = Promise.resolve(); a < params.value; a++) {
     b = b.then(e => new Promise(resolvee =>{
       for (let i = 0, p = Promise.resolve(); i < clicksArray.length; i++) {
         p = p.then(_ => new Promise(resolve =>
